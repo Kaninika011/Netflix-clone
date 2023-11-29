@@ -21,9 +21,9 @@ model User {
   updatedAt DateTime @updatedAt
   favouriteIds String[] @db.ObjectId
   sessions Session[]
-  accounts Acoount[]
+  accounts Account[]
 }
- model Acoount{
+ model Account{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId
   type String
