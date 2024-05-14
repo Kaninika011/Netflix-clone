@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  //previewFeatures = ["mongoDb"]
 }
 
 datasource db {
@@ -16,10 +17,10 @@ model User {
   image String?
   email String? @unique
   emailVerified DateTime?
-  hashedPassword String?
+  hashedPassword String? 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  favouriteIds String[] @db.ObjectId
+  favoriteIds String[] @db.ObjectId 
   sessions Session[]
   accounts Account[]
 }
@@ -30,7 +31,7 @@ model User {
   provider String
   providerAccountId String
   refresh_token String? @db.String
-  Access_string String? @db.String
+  access_token String? @db.String 
   expires_at Int?
   token_type String?
   scope String?

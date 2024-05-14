@@ -2,11 +2,9 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { NextPageContext } from "next";
 import { getSession, signIn } from "next-auth/react";
-
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-
-import Input from "@/components/input";
+import Input from "../components/input";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -26,8 +24,6 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 const Auth = () => {
-  
-
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -45,10 +41,8 @@ const Auth = () => {
       await signIn("credentials", {
         email,
         password,
-       callbackUrl: "/profiles",
+        callbackUrl: "/profiles",
       });
-
-     
     } catch (error) {
       console.log(error);
     }
@@ -86,7 +80,9 @@ const Auth = () => {
                   type="text"
                   label="Username"
                   value={name}
-                  onChange={(e: any) => setName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setName(e.target.value)
+                  }
                 />
               )}
               <Input
@@ -94,14 +90,18 @@ const Auth = () => {
                 type="email"
                 label="Email address or phone number"
                 value={email}
-                onChange={(e: any) => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
               <Input
                 type="password"
                 id="password"
                 label="Password"
                 value={password}
-                onChange={(e: any) => setPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
               />
             </div>
             <button

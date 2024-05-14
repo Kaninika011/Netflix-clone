@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { compare } from "bcrypt";
-import prismadb from "@/lib/prismadb";
+import prismadb from "../../../lib/prismadb";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -16,6 +16,7 @@ export const authOptions: AuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
+
     Credentials({
       id: "credentials",
       name: "Credentials",
@@ -26,7 +27,7 @@ export const authOptions: AuthOptions = {
         },
         password: {
           label: "Password",
-          type: "passord",
+          type: "password",
         },
       },
       async authorize(credentials) {
@@ -36,7 +37,7 @@ export const authOptions: AuthOptions = {
 
         const user = await prismadb.user.findUnique({
           where: {
-            email: credentials.email,
+            email: credentials.email, //unique user
           },
         });
 
