@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { motion } from "framer-motion";
 import PlayButton from "./PlayButton";
 import FavoriteButton from "./FavoritesButton";
 import useInfoModalStore from "@/hooks/useInfoModal";
@@ -74,19 +75,31 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
             </div>
 
             <div className="absolute bottom-[10%] left-10">
-              <p className="">{data?.title}</p>
+              <motion.p
+                initial={{ opacity: 0, x: -200 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, type: "tween" }}
+                className="text-2xl text-white mb-3 font-mono font-semibold"
+              >
+                {data?.title}
+              </motion.p>
               <div className="flex flex-row gap-4 items-center">
                 <PlayButton movieId={data?.id} />
                 <FavoriteButton movieId={data?.id} />
               </div>
             </div>
           </div>
-          <div className="px-12 py-8">
+          <motion.div
+            initial={{ opacity: 0.1 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1, type: "tween" }}
+            className="px-12 py-8"
+          >
             <p className="text-green-400 font-semibold text-lg">New</p>
             <p className="text-white text-lg">{data?.duration}</p>
             <p className="text-white text-lg">{data?.genre}</p>
             <p className="text-white text-lg">{data?.description}</p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

@@ -27,8 +27,8 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
   const [variant, setVariant] = useState("login");
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) =>
@@ -38,18 +38,24 @@ const Auth = () => {
 
   const login = useCallback(async () => {
     try {
+      setIsLoading(true);
       await signIn("credentials", {
         email,
         password,
         callbackUrl: "/profiles",
       });
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 3000);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }, [email, password]);
 
   const register = useCallback(async () => {
     try {
+      setIsLoading(true);
       await axios.post("/api/register", {
         email,
         name,
@@ -57,8 +63,13 @@ const Auth = () => {
       });
 
       login();
+
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 3000);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }, [email, name, password, login]);
 
@@ -107,8 +118,15 @@ const Auth = () => {
             <button
               onClick={variant === "login" ? login : register}
               className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition"
+              disabled={isLoading}
             >
-              {variant === "login" ? "Login" : "Sign up"}
+              {isLoading ? (
+                <span className="loading loading-spinner loading-md"></span>
+              ) : variant === "login" ? (
+                "Login"
+              ) : (
+                "Sign up"
+              )}
             </button>
             <div className="flex flex-row items-center gap-4 mt-8 justify-center">
               <div
