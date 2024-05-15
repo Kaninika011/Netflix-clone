@@ -137,7 +137,7 @@ const Auth = () => {
               </div>
               <div
                 onClick={() => signIn("github", { callbackUrl: "/profiles" })}
-                className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+                className="w-10 h-10 bg-white text-zinc-900 rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
               >
                 <FaGithub size={32} />
               </div>
